@@ -1,0 +1,31 @@
+// Ignore whitespace
+WHITESPACE = _{ " " | "\t" | "\n" | "\r" }
+
+// Entry point
+query = {
+    insert_data
+}
+
+// Insert data query
+insert_data = {
+    insert_data_keyword ~ "{" ~ (triple ~ ".")* ~ "}"
+}
+
+// Triple definitions
+triple = {
+    subject ~ predicate ~ object
+}
+subject = { iri | blank_node | variable }
+predicate = { iri | "a" }
+object = { iri | string_literal | blank_node | var }
+
+// Terminals
+variable = @{ "?" ~ name }
+blank_node = @{ "_:" ~ name }
+
+iri = @{ "<" ~ (!">" ~ ANY)* ~ ">" }
+name = @{ (ASCII_ALPHANUMERIC | "_" | "-")+ }
+string_literal = @{ "\"" ~ (!"\"" ~ ANY)* ~ "\"" }
+
+// Keywords
+insert_data_keyword = _{ "INSERT" ~ "DATA" | "insert" ~ "data" }
