@@ -14,10 +14,7 @@ insert_data = {
 
 // SELECT query
 select_query = {
-    select_keyword ~ variable+ ~ where_clause
-}
-where_clause = {
-    where_keyword ~ "{" ~ (triple ~ ".")* ~ "}"
+    "SELECT" ~ variable+ ~ "WHERE" ~ "{" ~ (triple ~ ".")* ~ "}"
 }
 
 // Triple definitions
