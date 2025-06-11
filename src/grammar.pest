@@ -3,18 +3,17 @@ WHITESPACE = _{ " " | "\t" | "\n" | "\r" }
 
 // Entry point
 query = {
-    insert_data
+    insert_query | select_query
 }
 
 // Insert data query
-insert_data = {
+insert_query = {
     insert_data_keyword ~ "{" ~ (triple ~ ".")* ~ "}"
 }
 
-
 // SELECT query
 select_query = {
-    "SELECT" ~ variable+ ~ "WHERE" ~ "{" ~ (triple ~ ".")* ~ "}"
+    select_keyword ~ variable+ ~ "WHERE" ~ "{" ~ (triple ~ ".")* ~ "}"
 }
 
 // Triple definitions
@@ -35,3 +34,4 @@ string_literal = @{ "\"" ~ (!"\"" ~ ANY)* ~ "\"" }
 
 // Keywords
 insert_data_keyword = _{ "INSERT" ~ "DATA" | "insert" ~ "data" }
+select_keyword = _{ "SELECT" | "select" }
