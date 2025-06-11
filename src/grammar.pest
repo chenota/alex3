@@ -11,13 +11,22 @@ insert_data = {
     insert_data_keyword ~ "{" ~ (triple ~ ".")* ~ "}"
 }
 
+
+// SELECT query
+select_query = {
+    select_keyword ~ variable+ ~ where_clause
+}
+where_clause = {
+    where_keyword ~ "{" ~ (triple ~ ".")* ~ "}"
+}
+
 // Triple definitions
 triple = {
     subject ~ predicate ~ object
 }
 subject = { iri | blank_node | variable }
 predicate = { iri | "a" }
-object = { iri | string_literal | blank_node | var }
+object = { iri | string_literal | blank_node | variable }
 
 // Terminals
 variable = @{ "?" ~ name }
